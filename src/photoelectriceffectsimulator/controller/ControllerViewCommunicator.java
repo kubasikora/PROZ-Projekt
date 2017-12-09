@@ -3,11 +3,14 @@ package photoelectriceffectsimulator.controller;
 import photoelectriceffectsimulator.utilities.ExpNumber;
 
 /**
- * Interfejs obsługi komunikacji kontrolera z widokiem
- * @author kuba
+ * Interfejs obsługi komunikacji kontrolera z widokiem.
+ * Udostępnia metody zwracające nowe wartości zadane przez użytkownika.
+ * @see Controller
+ * 
+ * @author Jakub Sikora
  */
 public interface ControllerViewCommunicator {
-    /**\
+    /**
      * Funkcja obsługująca zmianę długości fali w widoku
      * @param newValue nowa wartość długości fali
      */

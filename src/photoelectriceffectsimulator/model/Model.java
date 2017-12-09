@@ -11,20 +11,13 @@ import photoelectriceffectsimulator.controller.ControllerModelCommunicator;
  * @author Jakub Sikora
  */
 public class Model implements AbstractModel{
-    /**
-     * Referencja do obiektu kontrolera z którym model ma się komunikować
-     * @see Controller
-     */
+    /** Referencja do obiektu kontrolera z którym model ma się komunikować */
     private ControllerModelCommunicator controller;
     
-    /**
-     * Obiekt przechowujący dane pobrane z obiektu widoku
-     */
+    /** Obiekt przechowujący dane pobrane z obiektu widoku */
     private ModelState modelState;
     
-    /**
-     * Obiekt wykonujący obliczenia 
-     */
+    /** Obiekt wykonujący obliczenia */
     private ModelMathUnit mathUnit;
     
     /**
@@ -59,6 +52,11 @@ public class Model implements AbstractModel{
         modelState.setActiveMetalType(MetalType.convertFromString(newType));
     }
     
+    /**
+     * W momencie otrzymania wyników, przekazuje je do aktywnego kontrolera za 
+     * pomocą metod z interfejsu {@link ControllerModelCommunicator}
+     * @param newResult zagregowany wynik obliczeń
+     */
     public void informController(ModelResult newResult){
         controller.printOutcomeExitEnergy(newResult.getExitEnergy());
         controller.printOutcomePhotonEnergy(newResult.getPhotonEnergy());
@@ -66,7 +64,8 @@ public class Model implements AbstractModel{
     }
     
     /**
-     * Funkcja inicjalizująca obiekt modelu
+     * Funkcja inicjalizująca obiekt modelu. Tworzy podrzędne obiekty stanu i 
+     * obliczeń.
      */
     private void initializeModel(){
         modelState = new ModelState();
@@ -91,7 +90,11 @@ public class Model implements AbstractModel{
     }
     
     /**
-     * Ustaw referencje do obiektu kontrolera
+     * Ustaw referencje do obiektu kontrolera i inicjalizuje obiekt.
+     * Model nie powinien zostać zainicjalizowany bez kontrolera, jego 
+     * inicjalizacja następuje dopiero w momencie otrzymania referencji do 
+     * kontrolera.
+     * 
      * @param controller referencja do obiektu kontrolera
      */
     public void setController(ControllerModelCommunicator controller){

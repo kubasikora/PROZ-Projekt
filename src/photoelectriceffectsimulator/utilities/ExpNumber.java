@@ -1,22 +1,16 @@
 package photoelectriceffectsimulator.utilities;
 
 /**
- * Klasa zapisująca liczby w notacji wykładniczej
+ * Klasa pozwalająca na zapis liczby w notacji inżynierskiej (wykładniczej)
 * @author kuba
  */
 public class ExpNumber {
-    /**
-     * Podstawa liczby zapisanej w notacji wykładniczej
-     */
+    /** Podstawa liczby zapisanej w notacji wykładniczej*/
     private double base;
-    /**
-     * Wykładnik liczby zapisanej w notacji wykładniczej
-     */
+    /** Wykładnik liczby zapisanej w notacji wykładniczej */
     private int index;
     
-    /**
-     * Konstruktor bezparametrowy przyjmujący wartości domyślne
-     */
+    /** Konstruktor bezparametrowy przyjmujący wartości domyślne */
     public ExpNumber(){
         base = 1;
         index = 0;
@@ -25,7 +19,7 @@ public class ExpNumber {
     /**
      * Konstruktor parametryzowany który pobiera wartość podstawy i wykładnika,
      * sprawdza czy są poprawnymi wartościami i ewentualnie doprowadza do 
-     * odpowiedniej postaci
+     * odpowiedniej postaci.
      * @param base podstawa liczby zapisanej w notacji wykładniczej
      * @param index wykładnik liczby zapisanej w notacji wykładniczej
      */
@@ -207,7 +201,11 @@ public class ExpNumber {
         return new ExpNumber(e1.getBase() / e2.getBase(), e1.getIndex() - e2.getIndex());
     }
     
-    
+    /**
+     * Funckja konwertuje liczbę zapisaną w notacji wykładniczej do typu double
+     * @param e liczba w notacji wykładniczej
+     * @return wartość typu double
+     */
     public static double getDouble(ExpNumber e){
         double eBase = e.getBase();
         int eIndex = e.getIndex();

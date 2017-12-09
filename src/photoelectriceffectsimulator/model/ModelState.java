@@ -6,41 +6,32 @@ import photoelectriceffectsimulator.utilities.MetalType;
 
 /**
  * Obiekt przechowuje informacje o wybranych przez użytkownika ustawieniach,
- * na podstawie których będą przeprowadzane obliczenia
+ * na podstawie których będą przeprowadzane obliczenia. 
+ * Implementuje interfejs obiektu obserwowanego, informuje swoich obserwatorów
+ * o zmianie swoich pól.
+ * 
  * @author Jakub Sikora
  */
 public class ModelState extends Observable {
-    /**
-     * Typ metalu oraz powiązana z nim praca wyjścia w elektronowoltach
-     */
+    /** Typ metalu oraz powiązana z nim praca wyjścia w elektronowoltach */
     private MetalType activeMetalType;
-    /**
-     * Długośc fali padającej
-     */
+    /** Długośc fali padającej */
     private ExpNumber waveLength;
-    /**
-     * Napięcie przyłożone do płytek w woltach
-     */
+    /** Napięcie przyłożone do płytek w woltach*/
     private double voltage;
-    /**
-     * Natężenie światła padającego
-     */
+    /** Natężenie światła padającego */
     private double intensity;
-    
-    
-    
+
     /**
-     * Konstruktor bezparametrowy
+     * Konstruktor bezparametrowy, wypełnia stan modelu wartościami początkowymi
      */
     ModelState(){
         activeMetalType = MetalType.FERRUM;
         waveLength = new ExpNumber(600,-9);
         intensity = 0.0;
-        voltage = 0.0;
-        
+        voltage = 0.0;    
     }
     
-    //getttery i settery
     /**
      * Zwraca wybrany typ metalu
      * @return aktywny typ metalu

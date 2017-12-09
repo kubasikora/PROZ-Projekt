@@ -1,40 +1,35 @@
 package photoelectriceffectsimulator.model;
 
-import photoelectriceffectsimulator.controller.ControllerModelCommunicator;
 import java.util.Observable;
 import java.util.Observer;
-import java.awt.Toolkit;
 import photoelectriceffectsimulator.utilities.ExpNumber;
 
 /**
  * Obiekt tej klasy wykonuje obliczenia na podstawie wyników znajdujących się 
- * w obiekcie typu ModelState i jest on przez ten obiekt informowany że zmieniły
- * się dane i należy obliczenia ponowić
- * @author kuba
+ * w obiekcie typu {@link ModelState} i jest on przez ten obiekt informowany że zmieniły
+ * się dane i należy obliczenia ponowić.
+ * Implementuje interfejs obserwatora, gdy zmieni się obiekt obserwowany ponownie
+ * oblicza wartości prądu przyrządu.
+ * 
+ * @author Jakub Sikora
  */
 public class ModelMathUnit implements Observer {
 
-    /**
-     * Referencja do modelu nadrzędnego
-     */
+    /** Referencja do modelu nadrzędnego*/
     private final Model activeModel;
-    /**
-     * Stała efektywności kwantowej - określa stosunek prądu nasycenia do natężenia
-     * oświetlenia podana w A/lm
-     */
+    
+    /** Stała efektywności kwantowej - określa stosunek prądu nasycenia do natężenia
+        oświetlenia podana w A/lm */
     private final ExpNumber QUANTUM_EFF = new ExpNumber(5,-4); 
-    /**
-     * Stała plancka - określa zjawiska kwantowe podana w eV*s
-     */
+    
+    /** Stała plancka - określa zjawiska kwantowe podana w eV*s*/
     private final ExpNumber PLANCK_CONST = new ExpNumber(4.1356, -15);
-    /**
-     * Stała prędkości światła podana w m/s
-     */
+    
+    /** Stała prędkości światła podana w m/s*/
     private final ExpNumber LIGHT_SPEED = new ExpNumber(3,8);
-    /**
-     * Stały ładunek elementarny podany w C
-     */
-    private final ExpNumber ELECTRON_CHARGE = new ExpNumber(-1.602, -19); //C
+    
+    /** bStały ładunek elementarny podany w C*/
+    private final ExpNumber ELECTRON_CHARGE = new ExpNumber(-1.602, -19); 
     
     /**
      * Konstruktor parametryzowany obiektem nadrzędnym
@@ -45,9 +40,11 @@ public class ModelMathUnit implements Observer {
     }
     
     /**
-     * Funkcja wywoływana w momencie gdy zmieni się stan obiektu
+     * Funkcja wywoływana w momencie gdy zmieni się stan obiektu.
+     * Oblicza nowe wartości na podstawie zaktualizowanego stanu modelu.
+     * Wynik przedstawia w postaci obiektu {@link ModelResult}.
      * @param o obiekt zmieniony 
-     * @param obj 
+     * @param obj argument przekazany przez obiekt obserwowany 
      */
     @Override
     public void update(Observable o, Object obj) { 

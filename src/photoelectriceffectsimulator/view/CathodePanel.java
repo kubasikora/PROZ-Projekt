@@ -2,11 +2,11 @@ package photoelectriceffectsimulator.view;
 
 import javax.swing.*;
 import java.awt.*;
-import javax.swing.BoxLayout;
 
 /**
  * Kontener obsługujący wyświetlaną animacje na ekranie 
- * @author kuba
+ * 
+ * @author Jakub Sikora
  */
 public class CathodePanel extends JPanel {
     
@@ -15,9 +15,9 @@ public class CathodePanel extends JPanel {
      * @param dimension rozmiar panelu  
      */
     CathodePanel(Dimension dimension){
-        setBackground(Color.YELLOW);
-        setMinimumSize(dimension);
-        setPreferredSize(dimension);
-        setMaximumSize(dimension);
+        super.setBackground(Color.YELLOW);
+        super.setMinimumSize(dimension);
+        super.setPreferredSize(dimension);
+        super.setMaximumSize(dimension);
     }
 }

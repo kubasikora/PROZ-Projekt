@@ -4,7 +4,10 @@ import photoelectriceffectsimulator.utilities.ExpNumber;
 
 /**
  * Interfejs obsługi komunikacji kontrolera z modelem
- * @author kuba
+ * Udostępnia metody zwracające wyniki obliczeń.
+ * @see Controller
+ * 
+ * @author Jakub Sikora
  */
 public interface ControllerModelCommunicator {
     /**

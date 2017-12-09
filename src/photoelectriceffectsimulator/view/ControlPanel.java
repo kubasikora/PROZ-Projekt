@@ -14,75 +14,52 @@ import photoelectriceffectsimulator.utilities.MetalType;
 
 /**
  * Kontener obsługujący pobieranie od użytkownika ustawień
- * @author kuba
+ * 
+ * @author Jakub Sikora
  */
 public class ControlPanel extends JPanel {
-    //slidery zbierające informacje
-    /**
-     * Slider zbierający od użytkownika wartość długości fali
-     */
+    /** Slider zbierający od użytkownika wartość długości fali*/
     private JSlider waveLengthSlider;
     
-    /**
-     * Slider zbierający od użytkownika wartość natężenia światła
-     */
+    /** Slider zbierający od użytkownika wartość natężenia światła*/
     private JSlider intensitySlider;
     
-    /**
-     * Slider zbierający od użytkownika wartość przyłożonego napięcia
-     * między okładkami
-     */
+    /** Slider zbierający od użytkownika wartość przyłożonego napięcia
+     * między okładkami*/
     private JSlider voltageSlider;
     
-    //labele wypisujące wartości
-    /**
-     *Label wyświetlający wybraną przez użytkownika wartość długości fali 
-     */
+    /** Label wyświetlający wybraną przez użytkownika wartość długości fali*/
     private JLabel waveLengthLabel; 
     
-    /**
-     *Label wyświetlający wybraną przez użytkownika wartość natężenia światła
-     */
+    /** Label wyświetlający wybraną przez użytkownika wartość natężenia światła*/
     private JLabel intensityLabel; 
     
-    /**
-     *Label wyświetlający wybraną przez użytkownika wartość przyłożonego 
-     * napięcia między okładkami
-     */
+    /** Label wyświetlający wybraną przez użytkownika wartość przyłożonego 
+     *  napięcia między okładkami */
     private JLabel voltageLabel;
     
-    //panele pomocnicze
-    /**
-     * Panel pomocniczy do formatowania labeli przy suwaku długości światła
-     */
+    /** Panel pomocniczy do formatowania labeli przy suwaku długości światł*/
     private JPanel waveLengthLabelsPanel;
     
-    /**
-     * Panel pomocniczny do formatowania labeli przy suwaku natężenia światła 
-     */
+    /** Panel pomocniczny do formatowania labeli przy suwaku natężenia światła */
     private JPanel intensityLabelsPanel;
     
-    /**
-     * Panel pomocniczy do formatowania labeli przy suwaku napięcia
-     * przyłożonego między okładkami
-     */
+    /** Panel pomocniczy do formatowania labeli przy suwaku napięcia
+     *  przyłożonego między okładkami */
     private JPanel voltageLabelsPanel;
     
-    /**
-     * JComboBox służący do wybrania przez użytkownika typu metalu z którego
-     * wykonana jest katoda
-     */
+    /** JComboBox służący do wybrania przez użytkownika typu metalu z którego
+     *  wykonana jest katoda */
     private JComboBox<String> metalTypeComboBox;
     
-    /**
-     * Referencja do aktywnego kontrolera, potrzebna do wysyłania informacji do 
-     * kontrolera
-     */
+    /**Referencja do aktywnego kontrolera, potrzebna do wysyłania informacji do 
+     * kontrolera */
     private final ControllerViewCommunicator activeController;
     
     /**
-     * Konstruktor 
+     * Konstruktor parametryzowany
      * @param dimension rozmiar panelu  
+     * @param activeController kontroller do którego mają być wysyłane zmiany 
      */
     ControlPanel(Dimension dimension, ControllerViewCommunicator activeController){
         this.activeController = activeController;
@@ -94,11 +71,8 @@ public class ControlPanel extends JPanel {
         createControlPanelComponents();
     }
     
-    /**
-     * Funkcja tworzy komponenty podległe panelowi
-     */
+    /** Funkcja tworzy komponenty podległe panelowi*/
     private void createControlPanelComponents(){
-        //TODO Obrazek na tytuł
         //inicjalizuj komponenty obsługujące długość fali
         initializeWaveLengthSlider();       
         initializeWaveLengthLabels();
@@ -140,9 +114,7 @@ public class ControlPanel extends JPanel {
     
     //inicjalizatory labelów i suwaków 
     
-    /**
-     * Funkcja inicjalizuje JPanel z JLabelami opisujące suwak wyboru długości fali 
-     */
+    /** Funkcja inicjalizuje JPanel z JLabelami opisujące suwak wyboru długości fali*/
     private void initializeWaveLengthLabels(){
         waveLengthLabelsPanel = new JPanel();
         waveLengthLabelsPanel.setLayout(new BoxLayout(waveLengthLabelsPanel, BoxLayout.LINE_AXIS));
@@ -153,10 +125,8 @@ public class ControlPanel extends JPanel {
         waveLengthLabelsPanel.add(waveLengthLabel);
     }
     
-    /**
-     * Funkcja inicjuje slider zbierający od użytkownika wartość długości
-     * fali
-     */
+    /** Funkcja inicjuje slider zbierający od użytkownika wartość długości
+     * fali */
     private void initializeWaveLengthSlider(){
         //zaincjalizuj wyglad slidera
         waveLengthSlider = new JSlider(JSlider.HORIZONTAL, 100, 900 , 500);
@@ -168,9 +138,7 @@ public class ControlPanel extends JPanel {
         waveLengthSlider.setPaintTicks(true);   
         //dodaj changelistenera
         waveLengthSlider.addChangeListener(new ChangeListener(){
-            /**
-             * Funkcja obsługująca zmiany JSlidera z wartością długości fali
-            */
+            /** Funkcja obsługująca zmiany JSlidera z wartością długości fali */
             @Override
             public void stateChanged(ChangeEvent e){
                 int newValue = waveLengthSlider.getValue();
@@ -181,9 +149,7 @@ public class ControlPanel extends JPanel {
         });
     }
     
-    /**
-     * Funkcja inicjalizuje JPanel z JLabelami opisujące suwak wyboru natężenia światła 
-     */
+    /** Funkcja inicjalizuje JPanel z JLabelami opisujące suwak wyboru natężenia światła */
     private void initializeIntensityLabels(){
         intensityLabelsPanel = new JPanel();
         intensityLabelsPanel.setLayout(new BoxLayout(intensityLabelsPanel, BoxLayout.LINE_AXIS));
@@ -194,10 +160,8 @@ public class ControlPanel extends JPanel {
         intensityLabelsPanel.add(intensityLabel);
     }
     
-    /**
-     * Funkcja inicjuje slider zbierający od użytkownika wartość natężenia
-     * światła
-     */
+    /** Funkcja inicjuje slider zbierający od użytkownika wartość natężenia
+     * światła */
     private void initializeIntensitySlider(){
         //zaincjalizuj wyglad slidera
         intensitySlider = new JSlider(JSlider.HORIZONTAL, 0 , 100 , 0);
@@ -209,9 +173,7 @@ public class ControlPanel extends JPanel {
         intensitySlider.setPaintTicks(true);     
         //dodaj changelistenera
         intensitySlider.addChangeListener(new ChangeListener(){
-            /**
-             * Funkcja obsługująca zmiany JSlidera z wartością natężenia światła
-            */
+            /** Funkcja obsługująca zmiany JSlidera z wartością natężenia światła */
             @Override
             public void stateChanged(ChangeEvent e){
                 int newValue = intensitySlider.getValue();
@@ -222,10 +184,8 @@ public class ControlPanel extends JPanel {
         });
     }
     
-    /**
-     * Funkcja inicjalizuje JPanel z JLabelami opisujące suwak wyboru napięcia 
-     * przyłożonego między okładkami
-     */
+    /** Funkcja inicjalizuje JPanel z JLabelami opisujące suwak wyboru napięcia 
+     * przyłożonego między okładkami */
     private void initializeVoltageLabels(){
         voltageLabelsPanel = new JPanel();
         voltageLabelsPanel.setLayout(new BoxLayout(voltageLabelsPanel, BoxLayout.LINE_AXIS));
@@ -236,10 +196,8 @@ public class ControlPanel extends JPanel {
         voltageLabelsPanel.add(voltageLabel);
     }
     
-    /**
-     * Funkcja inicjuje slider zbierający od użytkownika wartość przyłożonego
-     * napięcia między okładkami
-     */
+    /** Funkcja inicjuje slider zbierający od użytkownika wartość przyłożonego
+     * napięcia między okładkami */
     private void initializeVoltageSlider(){
         //zainicjalizuj wyglad slidera 
         voltageSlider = new JSlider(JSlider.HORIZONTAL, -50 , 50 , 0);
@@ -254,9 +212,7 @@ public class ControlPanel extends JPanel {
         //dodaj changelistenera
         voltageSlider.addChangeListener(new ChangeListener(){
             @Override
-            /**
-             * Funkcja obsługująca zmiany JSlidera z wartością napięcia przyłożonego
-            */
+            /** Funkcja obsługująca zmiany JSlidera z wartością napięcia przyłożonego */
             public void stateChanged(ChangeEvent e){
                 double newValue = voltageSlider.getValue();
                 newValue /= 10; 
@@ -267,9 +223,7 @@ public class ControlPanel extends JPanel {
         });
     }
     
-    /**
-     * Funkcja inicjalizuje comboBoxa z typami dostępnych metali
-     */
+    /** Funkcja inicjalizuje comboBoxa z typami dostępnych metali*/
     private void initializeMetalTypeComboBox(){
         metalTypeComboBox = new JComboBox<>();
         metalTypeComboBox.setMaximumSize(new Dimension(250,50));
@@ -279,9 +233,7 @@ public class ControlPanel extends JPanel {
         }
         metalTypeComboBox.addActionListener(new ActionListener(){
             @Override
-            /**
-             * Funkcja obsługująca zmiany ComboBoxa z typem metali
-            */
+            /** Funkcja obsługująca zmiany ComboBoxa z typem metali */
             public void actionPerformed(ActionEvent ae) {
                 String chosenType = (String)metalTypeComboBox.getSelectedItem();
                 activeController.metalTypeChange(chosenType);

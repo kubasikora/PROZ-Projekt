@@ -6,6 +6,7 @@ import java.awt.Color;
  * Klasa dostępnych typów metali które aplikacja obsługuje,
  * wraz z ich pracami wyjścia. 
  * <p>Praca wyjścia podana jest w elektronowoltach
+ * 
  * @author Jakub Sikora
  */
 public enum MetalType {
@@ -18,13 +19,16 @@ public enum MetalType {
     SODIUM(2.36);
     //TODO zwiększyć ilość dostępnych metali
     
-   /**
-    * Praca wyjścia podana w elektronowoltach
-    */ 
+   /** Praca wyjścia podana w elektronowoltach */ 
     private final double exitEnergy;
     
+    /** Stała przyisująca metalom przejściowym odpowiedni kolor */
     private final static Color TRANSITION_METAL = new Color(102,255,102);
+    
+    /** Stała przyisująca metalom alkaicznym odpowiedni kolor */
     private final static Color ALKAINE_METAL = new Color(255,255,77);
+    
+    /** Stała przyisująca metalom typu p odpowiedni kolor */
     private final static Color P_TYPE_METAL = new Color(77,148,255);
     
     /**
@@ -36,7 +40,7 @@ public enum MetalType {
     }
     
     /**
-     * Uzyskaj pracę wyjścia tego metalu
+     * Zwraca pracę wyjścia tego metalu
      * @return Praca wyjścia 
      */
     public double getExitEnergy(){
@@ -69,6 +73,11 @@ public enum MetalType {
         return MetalType.FERRUM;
     }
     
+    /**
+     * Zwraca obiekt agregujący informację o danym metalu
+     * @param metalType metal o którym chcemy uzyskać informację
+     * @return obiekt przechowujący informację o metalu
+     */
     public static MetalInfo getMetalInfo(MetalType metalType){
         switch(metalType){
             case FERRUM: return new MetalInfo(26, "Fe", "Żelazo", 55.845, TRANSITION_METAL);
@@ -78,7 +87,7 @@ public enum MetalType {
             case PLATINUM: return new MetalInfo(78, "Pt", "Platyna", 195.08, TRANSITION_METAL);
             case SODIUM: return new MetalInfo(11, "Na", "Sód", 22.991, ALKAINE_METAL);
         }
-        //throw new Exception();
+        
         return new MetalInfo(26, "Fe", "Żelazo", 55.845, new Color(102,255,102));
     }
 }

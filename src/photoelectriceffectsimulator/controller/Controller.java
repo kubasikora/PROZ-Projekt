@@ -6,10 +6,13 @@ import photoelectriceffectsimulator.view.*;
 
 
 /**
- * Obiekt kontrolera zajmuje się zbieraniem przygotowanych 
- * informacji od obiektu widoku i wydawaniem poleceń 
- * do obiektu modelu, implementuje interfejsy komunikacji model-kontroler
- * i kontroler-widok
+ * Obiekt kontrolera, zajmuje się zbieraniem poleceń z {@link View}, przekazywaniu ich
+ * do {@link Model}, odbieraniu od niego wyników obliczeń i wysyłaniu ich do prezentacji
+ * użytkownikowi 
+ * 
+ * Implementuje interfejsy komunikacji kontroler-model i kontroler-widok, w celu
+ * wymienności modeli i widoków.
+ * 
  * @author Jakub Sikora
  */
 public class Controller implements ControllerModelCommunicator,
@@ -25,13 +28,18 @@ public class Controller implements ControllerModelCommunicator,
      */
     private final AbstractView view;
     
+    /**
+     * Konstruktor parametryzowany obiektami {@link View} i {@link Model}
+     * @param view obiekt prezentacji danych
+     * @param model obiekt modelowania aplikacj
+     */
     public Controller(View view, Model model){
         this.view = view;
         this.model = model;
     }
     
-    ////////////////Zmiany w VIEW które należy obsłużyć
     
+    //Metody interfesju ControllerViewCommunicator
     /**
      * Obsługuje zmianę długości fali przez użytkownika     
      * @param newValue nowa długość fali
@@ -58,6 +66,7 @@ public class Controller implements ControllerModelCommunicator,
     public void voltageChange(double newValue){
         model.setVoltage(newValue);
     }
+    
     /**
      * Obsługuje zmianę typu metalu przez użytkownika
      * @param newMetalType nowy typ metalu
@@ -69,7 +78,7 @@ public class Controller implements ControllerModelCommunicator,
     }
     
     
-    //////////////////zmiany wywowaływane w MODELU aby wpłynąć na widok
+    //Metody interfejsu ControllerModelCommunicator
     /**
      * Funkcja zmienia wartość wyświetlanej na ekranie pracy wyjścia 
      * @param exitEnergy zaktualizowana praca wyjścia
@@ -97,7 +106,7 @@ public class Controller implements ControllerModelCommunicator,
         view.setPhotonEnergy(photonEnergy);
     }
     
-    /////////////gettery modelu i widoku
+    //gettery modelu i widoku 
     
     /**
      * Zwraca referencje do obiektu modelu
