@@ -2,7 +2,7 @@ package photoelectriceffectsimulator.utilities;
 
 /**
  * Klasa zapisująca liczby w notacji wykładniczej
- * @author kuba
+* @author kuba
  */
 public class ExpNumber {
     /**

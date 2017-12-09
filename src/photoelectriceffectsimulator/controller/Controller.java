@@ -1,9 +1,8 @@
 package photoelectriceffectsimulator.controller;
 
-import javax.swing.JOptionPane;
 import photoelectriceffectsimulator.utilities.ExpNumber;
-import photoelectriceffectsimulator.model.Model;
-import photoelectriceffectsimulator.view.View;
+import photoelectriceffectsimulator.model.*;
+import photoelectriceffectsimulator.view.*;
 
 
 /**
@@ -19,16 +18,13 @@ public class Controller implements ControllerModelCommunicator,
      * Referencja do obiektu modelu 
      * @see Model
      */
-    private final Model model;
+    private final AbstractModel model;
     /**
      * Referencja do obiektu widoku
      * @see View
      */
-    private final View view;
+    private final AbstractView view;
     
-    /**
-     * Konstruktor bezparametrowy 
-     */
     public Controller(View view, Model model){
         this.view = view;
         this.model = model;
@@ -107,7 +103,7 @@ public class Controller implements ControllerModelCommunicator,
      * Zwraca referencje do obiektu modelu
      * @return referencja do modelu
      */
-    public Model getModel(){
+    public AbstractModel getModel(){
         return model;
     }
     
@@ -115,7 +111,7 @@ public class Controller implements ControllerModelCommunicator,
      * Zwraca referencje do obiektu widoku
      * @return referencja do widoku
      */
-    public View getView(){
+    public AbstractView getView(){
         return view;
     }
       

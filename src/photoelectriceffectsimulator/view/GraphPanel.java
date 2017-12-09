@@ -5,6 +5,9 @@ import java.awt.*;
 import javax.swing.BoxLayout;
 import javax.swing.BorderFactory;
 import java.awt.Font;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.Toolkit;
 import photoelectriceffectsimulator.utilities.MetalInfo;
 
 /**
@@ -64,6 +67,28 @@ public class GraphPanel extends JPanel{
         elemPanel.add(elementNameLabel);
         elemPanel.add(atomicMassLabel);
         elemPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
+        
+        elemPanel.addMouseListener(new MouseListener(){
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Toolkit tk = Toolkit.getDefaultToolkit();
+                tk.beep();
+                JOptionPane.showMessageDialog(elementPanel, elementNameLabel.getText(), "Materiał fotokatody", HEIGHT);
+             }
+
+            @Override
+            public void mousePressed(MouseEvent e){}
+
+            @Override
+            public void mouseReleased(MouseEvent e){}
+
+            @Override
+            public void mouseEntered(MouseEvent e){}
+
+            @Override
+            public void mouseExited(MouseEvent e){}
+        });
+        
         return elemPanel;
     }
     

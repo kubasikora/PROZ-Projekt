@@ -12,7 +12,7 @@ import photoelectriceffectsimulator.utilities.MetalType;
  * @author Jakub Sikora
  */
 
-public class View {
+public class View implements AbstractView{
     /**
      * Referencja do aktywnego kontrolera
      */

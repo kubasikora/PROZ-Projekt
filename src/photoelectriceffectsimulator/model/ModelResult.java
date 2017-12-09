@@ -7,22 +7,31 @@ import photoelectriceffectsimulator.utilities.ExpNumber;
  * kontrolera
  * @author kuba
  */
+
 public class ModelResult {
     private final ExpNumber current;
     
-    private final double maxKineticEnergy;
+    private final double photonEnergy;
     
-    ModelResult(ExpNumber current, double maxKineticEnergy){
+    private final double exitEnergy;
+    
+    ModelResult(ExpNumber current, double photonEnergy, double exitEnergy){
         this.current = current;
-        this.maxKineticEnergy = maxKineticEnergy;
+        this.photonEnergy = photonEnergy;
+        this.exitEnergy = exitEnergy;
+        
     }
     
     public ExpNumber getCurrent(){
         return current;
     }
     
-    public double getMaxKineticEnergy(){
-        return maxKineticEnergy;
+    public double getPhotonEnergy(){
+        return photonEnergy;
+    }
+    
+    public double getExitEnergy(){
+        return exitEnergy;
     }
     
 }

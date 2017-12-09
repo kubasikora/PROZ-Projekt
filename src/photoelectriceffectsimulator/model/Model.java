@@ -10,7 +10,7 @@ import photoelectriceffectsimulator.controller.ControllerModelCommunicator;
  * stan i symuluje zjawisko na podstawie przyjętego wcześniej modelu
  * @author Jakub Sikora
  */
-public class Model {
+public class Model implements AbstractModel{
     /**
      * Referencja do obiektu kontrolera z którym model ma się komunikować
      * @see Controller
@@ -59,6 +59,20 @@ public class Model {
         modelState.setActiveMetalType(MetalType.convertFromString(newType));
     }
     
+    public void informController(ModelResult newResult){
+        controller.printOutcomeExitEnergy(newResult.getExitEnergy());
+        controller.printOutcomePhotonEnergy(newResult.getPhotonEnergy());
+        controller.printOutcomeCurrent(newResult.getCurrent());
+    }
+    
+    /**
+     * Funkcja inicjalizująca obiekt modelu
+     */
+    private void initializeModel(){
+        modelState = new ModelState();
+        mathUnit = new ModelMathUnit(this);
+        modelState.addObserver(mathUnit);
+    }
     
     /**
      * Zwraca referencji do stanu modelu - struktury danych przechowującej stan
@@ -67,9 +81,6 @@ public class Model {
     public ModelState getModelState(){
         return modelState;
     }
-    
-    
-    //gettery i settery do kontrolera
     
     /**
      * Zwraca referencje do aktywnego kontrolera
@@ -86,11 +97,5 @@ public class Model {
     public void setController(ControllerModelCommunicator controller){
         this.controller = controller;
         initializeModel();
-    }
-    
-    private void initializeModel(){
-        modelState = new ModelState();
-        mathUnit = new ModelMathUnit(this, controller);
-        modelState.addObserver(mathUnit);
     }
 }

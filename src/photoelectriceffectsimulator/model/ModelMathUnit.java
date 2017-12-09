@@ -18,12 +18,6 @@ public class ModelMathUnit implements Observer {
      * Referencja do modelu nadrzędnego
      */
     private final Model activeModel;
-    
-    /**
-     * Referencja do kontrolera
-     */
-    private ControllerModelCommunicator activeController;
-    
     /**
      * Stała efektywności kwantowej - określa stosunek prądu nasycenia do natężenia
      * oświetlenia podana w A/lm
@@ -46,9 +40,8 @@ public class ModelMathUnit implements Observer {
      * Konstruktor parametryzowany obiektem nadrzędnym
      * @param activeModel model nadrzędny
      */
-    ModelMathUnit(Model activeModel, ControllerModelCommunicator activeController){
+    ModelMathUnit(Model activeModel){
         this.activeModel = activeModel;
-        this.activeController = activeController;
     }
     
     /**
@@ -59,22 +52,20 @@ public class ModelMathUnit implements Observer {
     @Override
     public void update(Observable o, Object obj) { 
         ModelState changed = (ModelState)o;
-        activeController.printOutcomeExitEnergy(changed.getActiveMetalType().getExitEnergy());
-        
+        double exitEnergy = changed.getActiveMetalType().getExitEnergy();
         double photonEnergy = evaluatePhotonEnergy(changed);
-        activeController.printOutcomePhotonEnergy(photonEnergy);
+        ExpNumber current;
         
         double maxKinEnergy = evaluateMaxKineticEnergy(changed);
-
-        
         if(maxKinEnergy > 0){
             ExpNumber saturationCurrent = this.evaluateSaturationCurrent(changed);
-            ExpNumber current = this.evaluateCurrent(saturationCurrent, changed.getVoltage(), maxKinEnergy);
-            activeController.printOutcomeCurrent(current);
+            current = this.evaluateCurrent(saturationCurrent, changed.getVoltage(), maxKinEnergy);
         }
         else {
-            activeController.printOutcomeCurrent(new ExpNumber(0,0));
+            current = new ExpNumber(0,0);
         }
+        
+        activeModel.informController(new ModelResult(current, photonEnergy, exitEnergy));
         
         //funkcja do debugowania 
         printChangedState(changed);
