@@ -7,8 +7,8 @@ import javax.swing.BorderFactory;
 import photoelectriceffectsimulator.utilities.ExpNumber;
 
 /**
- * Kontener osługujący wyniki wyświetlane na ekranie
- * @author kuba
+ * Kontener osługujący wyświetlanie wyników na ekranie
+ * @author Jakub Sikora
  */
 public class OutcomePanel extends JPanel{
     
@@ -30,23 +30,23 @@ public class OutcomePanel extends JPanel{
      */
     OutcomePanel(Dimension dimension, ControllerViewCommunicator controller){
         this.controller = controller;
-        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-        setBackground(Color.LIGHT_GRAY);
-        setMinimumSize(dimension);
-        setPreferredSize(dimension);
-        setMaximumSize(dimension);     
+        super.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        super.setBackground(Color.LIGHT_GRAY);
+        super.setMinimumSize(dimension);
+        super.setPreferredSize(dimension);
+        super.setMaximumSize(dimension);     
         
         JPanel exitEnergyPanel = createExitEnergyPanel();
         JPanel currentPanel = createCurrentPanel();
         JPanel photonEnergyPanel = createPhotonEnergyPanel();
-        setAlignmentX(CENTER_ALIGNMENT);
-        add(Box.createRigidArea(new Dimension(0,15)));
-        add(exitEnergyPanel);
-        add(Box.createRigidArea(new Dimension(0,1)));
-        add(photonEnergyPanel);
-        add(Box.createRigidArea(new Dimension(0,1)));
-        add(currentPanel);
-        add(Box.createGlue());
+        super.setAlignmentX(CENTER_ALIGNMENT);
+        super.add(Box.createRigidArea(new Dimension(0,15)));
+        super.add(exitEnergyPanel);
+        super.add(Box.createRigidArea(new Dimension(0,1)));
+        super.add(photonEnergyPanel);
+        super.add(Box.createRigidArea(new Dimension(0,1)));
+        super.add(currentPanel);
+        super.add(Box.createGlue());
         
     }
     
@@ -75,6 +75,10 @@ public class OutcomePanel extends JPanel{
             currentDisplay.setText(current);
     }
     
+    /**
+     * Funkcja ustawia odpowiednią jednostkę 
+     * @param currentIndex wartość wykładnika prąy
+     */
     private void validateCurrentUnit(int currentIndex){
         int index = Math.abs(currentIndex);
         if(index == 0) currentUnit.setText("A");
@@ -86,16 +90,26 @@ public class OutcomePanel extends JPanel{
 
     }
     
+    /**
+     * Funkcja doprowadza otrzymany obiekt do odpowiedniej postaci aby można było
+     * go wyświetlić na ekranie. 
+     * @param current prąd do wyświetlenia
+     * @return prąd typu double 
+     */
     private double validateCurrent(ExpNumber current){
         double index = current.getIndex();
-        double nonValidCurrent = current.getBase();
+        double validCurrent = current.getBase();
         while(Math.IEEEremainder(index, 3) != 0){
             index -=1;
-            nonValidCurrent *=10;
+            validCurrent *=10;
         }
-        return nonValidCurrent;
+        return validCurrent;
     }
     
+    /**
+     * Wyświetla energię fotonu na ekranie
+     * @param photonEnergy wartość energii fotonu do wyświetlenia
+     */
     public void setPhotonEnergyDisplay(double photonEnergy){
         String energy = String.valueOf(photonEnergy);
         char[] temp = energy.toCharArray();
@@ -106,7 +120,10 @@ public class OutcomePanel extends JPanel{
         else 
             photonEnergyDisplay.setText(energy);
     }
-    
+    /**
+     * Tworzy panel do wyświetlania energii fotonu
+     * @return panel energii fotonu
+     */
     private JPanel createPhotonEnergyPanel(){
         photonEnergyLabel = new JLabel("Energia fotonu: ");
         changeFontSize(photonEnergyLabel, 20);
@@ -134,7 +151,7 @@ public class OutcomePanel extends JPanel{
     /**
      * Funkcja inicjalizuje panel z etykietami obsługującymi wyświetlanie 
      * pracy wyjścia
-     * @return 
+     * @return panel pracy wyjścia
      */
     private JPanel createExitEnergyPanel(){
         exitEnergyLabel = new JLabel("Praca wyjścia katody: ");
@@ -160,6 +177,10 @@ public class OutcomePanel extends JPanel{
         return exitEnergyPanel;
     }
     
+    /**
+     * Tworzy panel obsługujący wyświetlanie prądu
+     * @return panel wyświetlający prąd
+     */
     private JPanel createCurrentPanel(){
         currentLabel = new JLabel("Prąd płynący przez przyrząd: ");
         changeFontSize(currentLabel, 20);

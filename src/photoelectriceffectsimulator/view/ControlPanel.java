@@ -56,18 +56,22 @@ public class ControlPanel extends JPanel {
      * kontrolera */
     private final ControllerViewCommunicator activeController;
     
+    /**Referencja do okna w którym znajduje się panel*/
+    private final MainFrame root;
+    
     /**
      * Konstruktor parametryzowany
      * @param dimension rozmiar panelu  
      * @param activeController kontroller do którego mają być wysyłane zmiany 
      */
-    ControlPanel(Dimension dimension, ControllerViewCommunicator activeController){
+    ControlPanel(Dimension dimension, ControllerViewCommunicator activeController, MainFrame root){
         this.activeController = activeController;
         super.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         super.setMinimumSize(dimension);
         super.setPreferredSize(dimension);       
         super.setMaximumSize(dimension); 
         super.setAlignmentX(LEFT_ALIGNMENT);
+        this.root = root;
         createControlPanelComponents();
     }
     
@@ -179,6 +183,7 @@ public class ControlPanel extends JPanel {
                 int newValue = intensitySlider.getValue();
                 String newText = String.valueOf(newValue) + "%";
                 getIntensityLabel().setText(newText);
+                root.getCathodePanel().setLightIntensity(newValue);
                 activeController.intensityChange(newValue);
             }
         });

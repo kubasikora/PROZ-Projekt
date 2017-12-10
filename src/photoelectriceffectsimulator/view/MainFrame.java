@@ -9,40 +9,34 @@ import javax.swing.BoxLayout;
  * Klasa głównego okna aplikacji, wykorzystująca bibliotekę Swing
  * <p>
  * MainFrame dziedziczy po JFrame, klasie okna w Swingu
+ * 
  * @author Jakub Sikora
  */
 public class MainFrame extends JFrame { 
-    /**
-     * Główny kontener komponentów
-     */
-    private JPanel mainPanel;
-    /**
-     * Kontener przechowujący komponenty z górnej części interfejsu
-     */
-    private JPanel upperPanel;
-    /**
-     * Kontener przechowujący komponenty z dolnej części interfejsu
-     */
-    private JPanel bottomPanel;
-    /**
-     * Kontener obsługujący animacje lampy katodowej
-     */
-    private CathodePanel cathodePanel;
-    /**
-     * Kontener obsługujący elementy obsługi aplikacji
-     */
-    private ControlPanel controlPanel;
-    /**
-     * Kontener obsługujący elementy wypisujące obliczone wyniki
-     */
+    /** Główny kontener komponentów*/
+    private final JPanel mainPanel;
+    
+    /**Kontener przechowujący komponenty z górnej części interfejsu*/
+    private final JPanel upperPanel;
+    
+    /**Kontener przechowujący komponenty z dolnej części interfejsu*/
+    private final JPanel bottomPanel;
+    
+    /**  Kontener obsługujący animacje lampy katodowej */
+    private final CathodePanel cathodePanel;
+    
+    /** Kontener obsługujący elementy obsługi aplikacji */
+    private final ControlPanel controlPanel;
+    
+    /**Kontener obsługujący elementy wypisujące obliczone wyniki*/
     private OutcomePanel outcomePanel;
-    /**
-     * Kontener obsługujący wykres w dolnej części ekranu
-     */
+    
+    /**Kontener obsługujący wykres w dolnej części ekranu*/
     private GraphPanel graphPanel;
     
     /**
-     * Konstruktor bezparametrowy
+     * Konstruktor parametryzowany
+     * @param controller aktywny kontroller
      */
     MainFrame(ControllerViewCommunicator controller){
         initializeFrame(); //inicjalizacja okna 
@@ -50,7 +44,7 @@ public class MainFrame extends JFrame {
         mainPanel.setLayout(new BoxLayout(mainPanel,BoxLayout.PAGE_AXIS));
         
         cathodePanel = new CathodePanel(new Dimension(500,500)); //panel animacji
-        controlPanel = new ControlPanel(new Dimension(300,500), controller); //panel suwaków
+        controlPanel = new ControlPanel(new Dimension(300,500), controller, this); //panel suwaków
         
         //górny panel
         upperPanel = new JPanel();
@@ -68,19 +62,16 @@ public class MainFrame extends JFrame {
         bottomPanel.add(outcomePanel);
         //bottomPanel.add(Box.createGlue());
         bottomPanel.add(graphPanel);
-        
-        
+    
         mainPanel.add(upperPanel);
         //mainPanel.add(Box.createGlue());
         mainPanel.add(bottomPanel);
         
-        add(mainPanel);
-        setVisible(true);
+        super.add(mainPanel);
+        //super.setVisible(true);
     }
     
-    /**
-     * Funkcja wykonuje czynności tworzące okno główne aplikacji
-     */
+    /** Funkcja wykonuje czynności tworzące okno główne aplikacji */
     private void initializeFrame(){
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800,800);
@@ -105,7 +96,19 @@ public class MainFrame extends JFrame {
         return outcomePanel;
     }
     
+    /**
+     * Zwraca referencję do panelu informacyjnego
+     * @return panel informacyjny
+     */
     public GraphPanel getGraphPanel(){
         return graphPanel;
+    }
+    
+    /**
+     * Zwraca referencję do panelu katody
+     * @return panel katody
+     */
+    public CathodePanel getCathodePanel(){
+        return cathodePanel;
     }
 }
