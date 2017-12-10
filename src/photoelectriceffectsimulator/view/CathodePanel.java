@@ -14,7 +14,7 @@ public class CathodePanel extends JPanel {
     private int lightIntensity;
     
     /** Przechowuje informację o aktualnej wartości długości światła*/
-    private int waveLength;
+    private double waveLength;
     
     /**
      * Konstruktor panelu grafiki z fotokomórką
@@ -41,7 +41,7 @@ public class CathodePanel extends JPanel {
                                  RenderingHints.VALUE_ANTIALIAS_ON);
         
         drawPhotodevice(graph2d);
-        drawLight(graph2d, Color.RED, this.evaluateIntensity());
+        drawLight(graph2d, this.evaluateColor(), this.evaluateIntensity());
     }
     
     /**
@@ -95,13 +95,92 @@ public class CathodePanel extends JPanel {
         this.repaint();
     }
     
+    public void setLightColor(int newWaveLength){
+        waveLength = newWaveLength;
+        this.repaint();
+    }
+    
     /**
      * Funkcja zwraca odpowiednią wartość jasności
      * @return odpowiednio przeskalowana jasność 
      */
     private float evaluateIntensity(){
-        return ((float)lightIntensity)/100;
+        return 0.65F*((float)lightIntensity)/100;
     }
 
+    private Color evaluateColor(){   
+        double rgb[] = new double[3];
+        double Gamma = 0.80;
+        double iMax = 255;
+        
+        if(isBetween(380, 440)){
+            rgb[0] = (440 - waveLength)/60;
+            rgb[1] = 0.0;
+            rgb[2] = 1.0;
+        }
+        
+        if(isBetween(440,490)){
+            rgb[0] = 0.0;
+            rgb[1] = (waveLength - 440)/50; 
+            rgb[2] = 1.0;
+        }
+        
+        if(isBetween(490,510)){
+            rgb[0] = 0.0; 
+            rgb[1] = 1.0;
+            rgb[2] = (510 - waveLength)/20; 
+        }
+        
+        if(isBetween(510,580)){
+            rgb[0] = (waveLength - 510)/70;
+            rgb[1] = 1.0;
+            rgb[2] = 0.0;
+        }
+        
+        if(isBetween(580,645)){
+            rgb[0] = 1.0;
+            rgb[1] = (645 - waveLength)/65;
+            rgb[2] = 0.0;
+        }
+        
+        if(isBetween(645,781)){
+            rgb[0] = 1.0; 
+            rgb[1] = 0.0;
+            rgb[2] = 0.0;
+        }
+        
+        if(!isBetween(380,781)){
+            rgb[0] = 0.5;
+            rgb[1] = 0.0;
+            rgb[2] = 0;
+        }
+        
+        double factor;
+        
+        factor = 0.2;
+        if(isBetween(380,420)){
+            factor = 0.3 + 0.7*(waveLength - 380)/60;
+        }
+        if(isBetween(420,701)){
+            factor = 1.0;
+        }
+        if(isBetween(701,781)){
+            factor = 0.3 + 0.7*(780 - waveLength)/80;
+        }
+        if(!isBetween(380,781)){
+            factor = 0.1;
+        }
+        
+        int RGB[] = new int[3];  
+        for(int i = 0; i < 3; i++){
+            RGB[i] = (rgb[i]==0) ? 0 :(int)Math.round(iMax*Math.pow(rgb[i]*factor, Gamma));
+        }
+        
+        return new Color(RGB[0], RGB[1], RGB[2]);
+    }
     
+    private boolean isBetween(int a, int b){
+        if(waveLength >= a && waveLength < b) return true;
+        else return false;
+    }
 }

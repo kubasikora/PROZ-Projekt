@@ -148,6 +148,7 @@ public class ControlPanel extends JPanel {
                 int newValue = waveLengthSlider.getValue();
                 String newText = String.valueOf(newValue) + "nm";
                 getWaveLengthLabel().setText(newText);
+                root.getCathodePanel().setLightColor(newValue);
                 activeController.waveLengthChange(new ExpNumber(newValue,-9));
             }
         });

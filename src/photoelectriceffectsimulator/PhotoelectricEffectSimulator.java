@@ -5,7 +5,7 @@ import photoelectriceffectsimulator.view.View;
 import photoelectriceffectsimulator.controller.Controller;
 
 /**
- * Główna klasa porgramu symulującego
+ * Główna klasa programu symulującego
  * zjawisko fotoelektryczne zewnętrzne 
  * stworzonego w ramach projektu
  * z programowania zdarzeniowego PROZ.A w semestrze 17Z
@@ -30,6 +30,8 @@ public class PhotoelectricEffectSimulator {
         
         model.setController(controller);
         view.setController(controller);
+        
+        view.getMainFrame().setVisible(true);
     }
     
 }
