@@ -11,7 +11,7 @@ import java.awt.geom.*;
  */
 public class CathodePanel extends JPanel {
     /** Przechowuje informację o aktualnej wartości natężenia światła */
-    private int lightIntensity;
+    private double lightIntensity;
     
     /** Przechowuje informację o aktualnej wartości długości światła*/
     private double waveLength;
@@ -105,7 +105,10 @@ public class CathodePanel extends JPanel {
      * @return odpowiednio przeskalowana jasność 
      */
     private float evaluateIntensity(){
-        return 0.65F*((float)lightIntensity)/100;
+        if(isBetween(350,781))
+            return 0.65F*((float)lightIntensity)/100;
+        else 
+            return 0.65F*0.6F*((float)lightIntensity)/100;
     }
 
     private Color evaluateColor(){   
@@ -113,7 +116,7 @@ public class CathodePanel extends JPanel {
         double Gamma = 0.80;
         double iMax = 255;
         
-        if(isBetween(380, 440)){
+        if(isBetween(340, 440)){
             rgb[0] = (440 - waveLength)/60;
             rgb[1] = 0.0;
             rgb[2] = 1.0;
@@ -149,7 +152,7 @@ public class CathodePanel extends JPanel {
             rgb[2] = 0.0;
         }
         
-        if(!isBetween(380,781)){
+        if(waveLength > 781){
             rgb[0] = 0.5;
             rgb[1] = 0.0;
             rgb[2] = 0;
