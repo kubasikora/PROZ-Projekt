@@ -316,7 +316,7 @@ public class CathodePanel extends JPanel {
         if(index > 9 && index <= 12) numberOfElectrons = 1;
         if(index > 12 && index <= 15) return;   
         
-        executor.execute(new Electron((JPanel)frame.getGlassPane())); 
+        executor.execute(new Electron((JPanel)frame.getGlassPane(), this)); 
         System.out.println("Stworzono elektron");
     }
     

@@ -17,6 +17,8 @@ public class Electron implements Runnable{
 
     private final JPanel root;
     
+    private final CathodePanel parent;
+    
     private int xPos;
     
     private final int yPos;
@@ -24,12 +26,13 @@ public class Electron implements Runnable{
     private final int velocity;
     
     
-    Electron(JPanel panel){
+    Electron(JPanel panel, CathodePanel parent){
        root = panel;
        xPos = 140;
        Random generator = new Random();
        yPos = generator.nextInt(240) + 130;
        velocity = 1;
+       this.parent = parent;
     }
     
     @Override
@@ -44,6 +47,7 @@ public class Electron implements Runnable{
                         graph2d.setColor(background);
                         graph2d.draw(body);
                         graph2d.fill(body);  
+                        parent.repaint(xPos, yPos, 15,15);
                     }});
                 
                 xPos+=10;
@@ -54,7 +58,7 @@ public class Electron implements Runnable{
                         graph2d.setColor(Color.BLUE);
                         graph2d.draw(newBody);
                         graph2d.fill(newBody);
-                        root.repaint();
+                        root.repaint(xPos, yPos, 15,15);
                     }
                 });
 
@@ -70,7 +74,7 @@ public class Electron implements Runnable{
                 }
 
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(50);
                 } catch (InterruptedException ex) {
 
                 }
