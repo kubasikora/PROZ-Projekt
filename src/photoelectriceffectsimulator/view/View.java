@@ -60,6 +60,7 @@ public class View implements AbstractView{
     @Override
     public void setExitEnergy(double exitEnergy){
         mainFrame.getOutcomePanel().setExitEnergyDisplay(exitEnergy);
+        mainFrame.getCathodePanel().setExitEnergy(exitEnergy);
     }
     
     /**
@@ -69,6 +70,7 @@ public class View implements AbstractView{
     @Override
     public void setOutcomeCurrent(ExpNumber current){
         mainFrame.getOutcomePanel().setCurrentDisplay(current);
+        mainFrame.getCathodePanel().setCurrentDisplay(current);
     }
     
     /**
@@ -78,6 +80,7 @@ public class View implements AbstractView{
     @Override
     public void setPhotonEnergy(double photonEnergy){
         mainFrame.getOutcomePanel().setPhotonEnergyDisplay(photonEnergy);
+        mainFrame.getCathodePanel().setPhotonEnergy(photonEnergy);
     }
     
 }

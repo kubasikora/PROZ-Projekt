@@ -43,7 +43,7 @@ public class MainFrame extends JFrame {
         mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel,BoxLayout.PAGE_AXIS));
         
-        cathodePanel = new CathodePanel(new Dimension(500,500)); //panel animacji
+        cathodePanel = new CathodePanel(new Dimension(500,500), this); //panel animacji
         controlPanel = new ControlPanel(new Dimension(300,500), controller, this); //panel suwaków
         
         //górny panel
@@ -78,6 +78,11 @@ public class MainFrame extends JFrame {
         setLocationRelativeTo(null);
         setTitle("Zjawisko fotoelektryczne");      
         setResizable(false);
+        
+        JPanel glass = new JPanel();
+        glass.setOpaque(false);
+        glass.setVisible(true);
+        setGlassPane(glass);
     }
     
     /**

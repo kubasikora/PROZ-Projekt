@@ -28,9 +28,6 @@ public class ModelMathUnit implements Observer {
     /** Stała prędkości światła podana w m/s*/
     private final ExpNumber LIGHT_SPEED = new ExpNumber(3,8);
     
-    /** bStały ładunek elementarny podany w C*/
-    private final ExpNumber ELECTRON_CHARGE = new ExpNumber(-1.602, -19); 
-    
     /**
      * Konstruktor parametryzowany obiektem nadrzędnym
      * @param activeModel model nadrzędny
@@ -63,9 +60,6 @@ public class ModelMathUnit implements Observer {
         }
         
         activeModel.informController(new ModelResult(current, photonEnergy, exitEnergy));
-        
-        //funkcja do debugowania 
-        printChangedState(changed);
     }
     
     /**
@@ -101,7 +95,6 @@ public class ModelMathUnit implements Observer {
         if(state.getIntensity() == 0) return 0.0;
         double photonEnergy = evaluatePhotonEnergy(state);
         double result = photonEnergy - state.getActiveMetalType().getExitEnergy();
-        System.out.println("Energia elektronu: " + result);
         if (result > 0) return result;
         else return  0.0;
     }
@@ -115,18 +108,6 @@ public class ModelMathUnit implements Observer {
         ExpNumber temp = ExpNumber.multiply(PLANCK_CONST, LIGHT_SPEED);
         return ExpNumber.getDouble(ExpNumber.divide(temp, state.getWaveLength()));
         
-    }
-    
-    /**
-     * Funkcja do debugowania, wyświetla aktualny stan obiektu
-     * @param changed stan modelu który ma zostać wyświetlony 
-     */
-    private void printChangedState(ModelState changed){
-       System.out.println("Pobrane z gui: ");
-       System.out.println(changed.getWaveLength().getBase() + "e" + changed.getWaveLength().getIndex());
-       System.out.println(changed.getIntensity());
-       System.out.println(changed.getVoltage());
-       System.out.println(changed.getActiveMetalType().getExitEnergy());
     }
     
 }
