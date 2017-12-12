@@ -1,5 +1,6 @@
 package photoelectriceffectsimulator;
 
+import javax.swing.SwingUtilities;
 import photoelectriceffectsimulator.model.Model;
 import photoelectriceffectsimulator.view.View;
 import photoelectriceffectsimulator.controller.Controller;
@@ -31,7 +32,12 @@ public class PhotoelectricEffectSimulator {
         model.setController(controller);
         view.setController(controller);
         
-        view.getMainFrame().setVisible(true);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run(){
+                view.initializeMainFrame();
+            }
+        });
     }
     
 }

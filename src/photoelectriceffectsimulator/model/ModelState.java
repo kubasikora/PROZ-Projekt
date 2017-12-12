@@ -27,7 +27,7 @@ public class ModelState extends Observable {
      */
     ModelState(){
         activeMetalType = MetalType.FERRUM;
-        waveLength = new ExpNumber(600,-9);
+        waveLength = new ExpNumber(500,-9);
         intensity = 0.0;
         voltage = 0.0;    
     }

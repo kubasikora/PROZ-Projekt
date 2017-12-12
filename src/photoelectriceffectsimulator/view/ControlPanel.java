@@ -224,6 +224,7 @@ public class ControlPanel extends JPanel {
                 newValue /= 10; 
                 String newText = String.valueOf(newValue) + "V";
                 getVoltageLabel().setText(newText);
+                root.getCathodePanel().setVoltageSign(newValue);
                 activeController.voltageChange(newValue);
             }
         });

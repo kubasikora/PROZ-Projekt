@@ -16,6 +16,9 @@ public class CathodePanel extends JPanel {
     /** Przechowuje informację o aktualnej wartości długości światła*/
     private double waveLength;
     
+    /** Przechowuje informację o aktualnej wartości przyłożonego napięcia */
+    private double voltage;
+    
     /**
      * Konstruktor panelu grafiki z fotokomórką
      * @param dimension rozmiar panelu  
@@ -42,7 +45,7 @@ public class CathodePanel extends JPanel {
         
         drawPhotodevice(graph2d);
         drawLight(graph2d, evaluateColor(), evaluateIntensity());
-        
+        drawVoltageSigns(graph2d, voltage);
     }
     
     /**
@@ -50,6 +53,7 @@ public class CathodePanel extends JPanel {
      * @param graph2d obiekt grafiki komponentu który ma narysować przyrząd
      */
     private void drawPhotodevice(Graphics2D graph2d){
+        BasicStroke previousStroke = (BasicStroke)graph2d.getStroke();
         graph2d.setStroke(new BasicStroke(10));
         
         //katoda
@@ -67,6 +71,8 @@ public class CathodePanel extends JPanel {
         //kabel anody
         Shape anodeWire = new Line2D.Float(370,230,480,230);
         graph2d.draw(anodeWire);
+        
+        graph2d.setStroke(previousStroke);
     }
     
     /**
@@ -76,6 +82,7 @@ public class CathodePanel extends JPanel {
      * @param intensity jasność snopu światła
      */
     private void drawLight(Graphics2D graph2d, Color color, float intensity){
+        BasicStroke previousStroke = (BasicStroke)graph2d.getStroke();
         graph2d.setStroke(new BasicStroke(0));
         int xPoints[] = {135,135,270};
         int yPoints[] = {37,435,5};
@@ -85,6 +92,22 @@ public class CathodePanel extends JPanel {
         graph2d.setColor(color);
         graph2d.fill(lightBeam);
         graph2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0F));
+        graph2d.setStroke(previousStroke);
+    }
+    
+    private void drawVoltageSigns(Graphics2D graph2d, double voltage){
+        if(voltage == 0) return;
+        
+        //napięcie dodatnie
+        if(voltage > 0){
+            BasicStroke previousStroke = (BasicStroke)graph2d.getStroke();
+            graph2d.setStroke(new BasicStroke(8));
+            Shape minus = new Line2D.Float(10,90,30,90);
+            graph2d.draw(minus);
+            
+            
+            graph2d.setStroke(previousStroke);
+        }
     }
     
     /**
@@ -96,8 +119,17 @@ public class CathodePanel extends JPanel {
         this.repaint();
     }
     
+    /**
+     * Funkcja obsługuje zmianę długości fali
+     * @param newWaveLength nowa długość fali
+     */
     public void setLightColor(int newWaveLength){
         waveLength = newWaveLength;
+        this.repaint();
+    }
+    
+    public void setVoltageSign(double voltage){
+        this.voltage = voltage;
         this.repaint();
     }
     
@@ -112,6 +144,10 @@ public class CathodePanel extends JPanel {
             return 0.65F*0.6F*((float)lightIntensity)/100;
     }
 
+    /**
+     * Zwróć kolor w rgb na podstawie długości fali padającej
+     * @return kolor w rgb
+     */
     private Color evaluateColor(){   
         double rgb[] = new double[3];
         double Gamma = 0.80;
@@ -183,6 +219,12 @@ public class CathodePanel extends JPanel {
         return new Color(RGB[0], RGB[1], RGB[2]);
     }
     
+    /**
+     * Sprawdza czy długośc fali znajduje się pomiędzy dwoma wartościami
+     * @param a
+     * @param b
+     * @return 
+     */
     private boolean isBetween(int a, int b){
         if(waveLength >= a && waveLength < b) return true;
         else return false;

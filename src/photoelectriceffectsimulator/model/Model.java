@@ -1,5 +1,6 @@
 package photoelectriceffectsimulator.model;
 
+import photoelectriceffectsimulator.controller.AbstractModel;
 import photoelectriceffectsimulator.utilities.ExpNumber;
 import photoelectriceffectsimulator.utilities.MetalType;
 import photoelectriceffectsimulator.controller.ControllerModelCommunicator;

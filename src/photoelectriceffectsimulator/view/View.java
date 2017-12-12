@@ -1,9 +1,9 @@
 package photoelectriceffectsimulator.view;
 
-import javax.swing.SwingUtilities;
+import photoelectriceffectsimulator.controller.AbstractView;
 import photoelectriceffectsimulator.controller.ControllerViewCommunicator;
-import photoelectriceffectsimulator.utilities.ExpNumber;
-import photoelectriceffectsimulator.utilities.MetalType;
+import photoelectriceffectsimulator.utilities.*;
+
 
 
 /**
@@ -12,7 +12,6 @@ import photoelectriceffectsimulator.utilities.MetalType;
  * oraz prezentacją obliczeń na ekranie
  * @author Jakub Sikora
  */
-
 public class View implements AbstractView{
     /** Referencja do aktywnego kontrolera*/
     private ControllerViewCommunicator controller;
@@ -81,12 +80,5 @@ public class View implements AbstractView{
         mainFrame.getOutcomePanel().setPhotonEnergyDisplay(photonEnergy);
     }
     
-    /**
-     * Zwraca referencje do głównego okna
-     * @return referencja do głównego okna
-     */
-    public MainFrame getMainFrame(){
-        return mainFrame;
-    }
 }
 

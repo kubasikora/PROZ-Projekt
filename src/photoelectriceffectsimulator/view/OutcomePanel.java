@@ -128,7 +128,7 @@ public class OutcomePanel extends JPanel{
         photonEnergyLabel = new JLabel("Energia fotonu: ");
         changeFontSize(photonEnergyLabel, 20);
         
-        photonEnergyDisplay = new JLabel("2.067");
+        photonEnergyDisplay = new JLabel("2.481");
         changeFontSize(photonEnergyDisplay, 20);
         
         JLabel photonEnergyUnit = new JLabel("eV");
