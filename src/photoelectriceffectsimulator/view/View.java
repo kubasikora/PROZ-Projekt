@@ -1,5 +1,6 @@
 package photoelectriceffectsimulator.view;
 
+import javax.swing.SwingUtilities;
 import photoelectriceffectsimulator.controller.ControllerViewCommunicator;
 import photoelectriceffectsimulator.utilities.ExpNumber;
 import photoelectriceffectsimulator.utilities.MetalType;
@@ -32,16 +33,16 @@ public class View implements AbstractView{
      */
     public void setController(ControllerViewCommunicator controller){
         this.controller = controller;
-        initializeMainFrame();
     }
     
     /**
      * Inicjalizuje obiekt {@link MainFrame}
      * @throws NullPointerException rzuca gdy nie ma kontrolera
      */
-    private void initializeMainFrame() throws NullPointerException {
+    public void initializeMainFrame() throws NullPointerException {
         if(controller == null) throw new NullPointerException();
         mainFrame = new MainFrame(controller);
+        mainFrame.setVisible(true);
     }
     
     /**
@@ -79,7 +80,7 @@ public class View implements AbstractView{
     public void setPhotonEnergy(double photonEnergy){
         mainFrame.getOutcomePanel().setPhotonEnergyDisplay(photonEnergy);
     }
-
+    
     /**
      * Zwraca referencje do głównego okna
      * @return referencja do głównego okna

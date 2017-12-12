@@ -41,7 +41,8 @@ public class CathodePanel extends JPanel {
                                  RenderingHints.VALUE_ANTIALIAS_ON);
         
         drawPhotodevice(graph2d);
-        drawLight(graph2d, this.evaluateColor(), this.evaluateIntensity());
+        drawLight(graph2d, evaluateColor(), evaluateIntensity());
+        
     }
     
     /**
