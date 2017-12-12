@@ -54,6 +54,7 @@ public class CathodePanel extends JPanel {
      */
     private void drawPhotodevice(Graphics2D graph2d){
         BasicStroke previousStroke = (BasicStroke)graph2d.getStroke();
+        Color previousColor = graph2d.getColor();
         graph2d.setStroke(new BasicStroke(10));
         
         //katoda
@@ -73,6 +74,7 @@ public class CathodePanel extends JPanel {
         graph2d.draw(anodeWire);
         
         graph2d.setStroke(previousStroke);
+        graph2d.setColor(previousColor);
     }
     
     /**
@@ -83,6 +85,8 @@ public class CathodePanel extends JPanel {
      */
     private void drawLight(Graphics2D graph2d, Color color, float intensity){
         BasicStroke previousStroke = (BasicStroke)graph2d.getStroke();
+        Color previousColor = graph2d.getColor();
+        
         graph2d.setStroke(new BasicStroke(0));
         int xPoints[] = {135,135,270};
         int yPoints[] = {37,435,5};
@@ -92,22 +96,47 @@ public class CathodePanel extends JPanel {
         graph2d.setColor(color);
         graph2d.fill(lightBeam);
         graph2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0F));
+        
         graph2d.setStroke(previousStroke);
+        graph2d.setColor(previousColor);
     }
     
     private void drawVoltageSigns(Graphics2D graph2d, double voltage){
         if(voltage == 0) return;
         
+        BasicStroke previousStroke = (BasicStroke)graph2d.getStroke();
+        Color previousColor = graph2d.getColor();
+        graph2d.setStroke(new BasicStroke(8));
         //napięcie dodatnie
-        if(voltage > 0){
-            BasicStroke previousStroke = (BasicStroke)graph2d.getStroke();
-            graph2d.setStroke(new BasicStroke(8));
-            Shape minus = new Line2D.Float(10,90,30,90);
+        if(voltage > 0){  
+            //minus
+            graph2d.setColor(Color.BLUE);
+            Shape minus = new Line2D.Float(30,180,90,180);
             graph2d.draw(minus);
             
-            
-            graph2d.setStroke(previousStroke);
+            //plus
+            graph2d.setColor(Color.RED);
+            Shape horizontal = new Line2D.Float(410,180,470,180);
+            Shape vertical = new Line2D.Float(440,150,440,210);
+            graph2d.draw(horizontal);
+            graph2d.draw(vertical);
         }
+        else{
+            //minus
+            graph2d.setColor(Color.BLUE);
+            Shape minus = new Line2D.Float(410,180,470,180);
+            graph2d.draw(minus);
+            
+            //plus
+            graph2d.setColor(Color.RED);
+            Shape horizontal = new Line2D.Float(30,180,90,180);
+            Shape vertical = new Line2D.Float(60,150,60,210);
+            graph2d.draw(horizontal);
+            graph2d.draw(vertical);
+        }
+        
+        graph2d.setStroke(previousStroke);
+        graph2d.setColor(previousColor);
     }
     
     /**
