@@ -26,6 +26,7 @@ public class CathodePanel extends JPanel {
     CathodePanel(Dimension dimension){
         lightIntensity = 0;
         waveLength = 500;
+        voltage = 0;
         
         super.setMinimumSize(dimension);
         super.setPreferredSize(dimension);
@@ -101,6 +102,12 @@ public class CathodePanel extends JPanel {
         graph2d.setColor(previousColor);
     }
     
+    /**
+     * Funkcja rysuje znaki napięcia przyłożonego po odpowiedniej stronie w zależności
+     * od nastawu użytkownika
+     * @param graph2d obiekt rysujący
+     * @param voltage napięcie przyłożone
+     */
     private void drawVoltageSigns(Graphics2D graph2d, double voltage){
         if(voltage == 0) return;
         
@@ -157,6 +164,10 @@ public class CathodePanel extends JPanel {
         this.repaint();
     }
     
+    /**
+     * Funkcja obsługuje zmianę napięcia przyłożonego
+     * @param voltage nowe napięcie przyłożone
+     */
     public void setVoltageSign(double voltage){
         this.voltage = voltage;
         this.repaint();
@@ -167,10 +178,7 @@ public class CathodePanel extends JPanel {
      * @return odpowiednio przeskalowana jasność 
      */
     private float evaluateIntensity(){
-        if(isBetween(350,781))
-            return 0.65F*((float)lightIntensity)/100;
-        else 
-            return 0.65F*0.6F*((float)lightIntensity)/100;
+        return 0.5F*((float)lightIntensity)/100;
     }
 
     /**
