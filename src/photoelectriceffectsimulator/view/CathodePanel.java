@@ -40,7 +40,7 @@ public class CathodePanel extends JPanel {
         super.setMinimumSize(dimension);
         super.setPreferredSize(dimension);
         super.setMaximumSize(dimension);
-        executor = Executors.newFixedThreadPool(1);
+        executor = Executors.newFixedThreadPool(10);
         lightIntensity = 0.0;
         waveLength = 500;
         voltage = 0.0;
@@ -48,6 +48,7 @@ public class CathodePanel extends JPanel {
         exitEnergy = 0.0;
         photonEnergy = 0.0;
         this.frame = frame;
+        super.setLayout(null);
 
     }
     
@@ -320,6 +321,8 @@ public class CathodePanel extends JPanel {
         System.out.println("Stworzono elektron");
     }
     
-    
+    public MainFrame getRoot(){
+        return frame;
+    }
     
 }

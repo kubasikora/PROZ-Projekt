@@ -12,7 +12,7 @@ public class ElectronManager{
     private final ExecutorService executor;
     int numberOfElectrons;
     
-    static final int MAX_NUMBER_OF_ELECTRONS = 4;
+    static final int MAX_NUMBER_OF_ELECTRONS = 20;
     
     ElectronManager(){
         executor = Executors.newFixedThreadPool(MAX_NUMBER_OF_ELECTRONS);
