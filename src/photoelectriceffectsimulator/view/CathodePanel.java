@@ -3,8 +3,6 @@ package photoelectriceffectsimulator.view;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import photoelectriceffectsimulator.utilities.ExpNumber;
 
 /**
@@ -22,16 +20,19 @@ public class CathodePanel extends JPanel {
     /** Przechowuje informację o aktualnej wartości przyłożonego napięcia */
     private double voltage;
     
-    /** Przechowuje informację o aktualnej wartości prądu przyrządu */
-    private ExpNumber current;
-    
+    /** Przechowuje informacje o aktualnej energii fotonów*/
     private double photonEnergy;
     
+    /** Przechowuje informacje o aktualnej pracy wyjścia z fotokatody*/
     private double exitEnergy;
     
-    private ExecutorService executor;
+    /** 
+     * Obiekt zarządcy elektronów który asynchronicznie oblicza pozycje elektronów 
+     * na ekranie
+     */
+    private final ElectronManager electronManager;
     
-    private MainFrame frame;
+    
     /**
      * Konstruktor panelu grafiki z fotokomórką
      * @param dimension rozmiar panelu  
@@ -40,16 +41,17 @@ public class CathodePanel extends JPanel {
         super.setMinimumSize(dimension);
         super.setPreferredSize(dimension);
         super.setMaximumSize(dimension);
-        executor = Executors.newFixedThreadPool(10);
+        electronManager = new ElectronManager(this);
+        Thread th = new Thread(electronManager);
+        th.start();
+        
+        
         lightIntensity = 0.0;
         waveLength = 500;
         voltage = 0.0;
-        current = new ExpNumber(0,1);
         exitEnergy = 0.0;
         photonEnergy = 0.0;
-        this.frame = frame;
         super.setLayout(null);
-
     }
     
     /**
@@ -271,7 +273,7 @@ public class CathodePanel extends JPanel {
         else return false;
     }
     
-        /**
+    /**
      * Funkcja obsługuje zmianę długości fali
      * @param newWaveLength nowa długość fali
      */
@@ -289,40 +291,32 @@ public class CathodePanel extends JPanel {
         this.repaint();
     }
     
-    public void setCurrentDisplay(ExpNumber current){
-        this.current = current;
-        if(current.getBase() == 0 && current.getIndex() == 1){
-            
-        }
-        else{
-            createFlyingElectrons();
-        }
-    }
-    
+    /**
+     * Funkcja ustawia aktualną wartość energii fotonu, która później jest przesyłana
+     * do zarządcy elektronów {@link ElectronManager}
+     * @param energy nowa wartość energii elektronu
+     */
     public void setPhotonEnergy(double energy){
         photonEnergy = energy;
+        this.electronManager.setElectronEnergy(photonEnergy - exitEnergy + voltage);
     }
     
+    /**
+     * Funkcja ustawia aktualną wartość pracy wyjścia, która później jest przesyłana
+     * do zarządcy elektronów {@link ElectronManager}
+     * @param energy nowa wartość pracy wyjścia
+     */
     public void setExitEnergy(double energy){
         exitEnergy = energy;
+        this.electronManager.setElectronEnergy(photonEnergy - exitEnergy + voltage);
     }
     
-    private void createFlyingElectrons(){
-        double electronEnergy = (photonEnergy - exitEnergy)/12.5;
-        int index = current.getIndex();
-        int numberOfElectrons;
-        if(index > 0 && index <= 3) numberOfElectrons = 4;
-        if(index > 3 && index <= 6) numberOfElectrons = 3;
-        if(index > 6 && index <= 9) numberOfElectrons = 2;
-        if(index > 9 && index <= 12) numberOfElectrons = 1;
-        if(index > 12 && index <= 15) return;   
-        
-        executor.execute(new Electron((JPanel)frame.getGlassPane(), this)); 
-        System.out.println("Stworzono elektron");
+    /**
+     * Funkcja ustawia nową wartość prądu przyrządu, która później jest przesyłana do 
+     * zarządcy elektronów {@link ElectronManager}
+     * @param newCurrent nowa wartość prądu
+     */
+    public void setCurrent(ExpNumber newCurrent){
+        this.electronManager.changeCurrent(newCurrent);
     }
-    
-    public MainFrame getRoot(){
-        return frame;
-    }
-    
 }

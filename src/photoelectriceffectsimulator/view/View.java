@@ -50,7 +50,7 @@ public class View implements AbstractView{
      */
     @Override
     public void setElementType(String newType){
-        mainFrame.getGraphPanel().changeElement(MetalType.getMetalInfo(MetalType.convertFromString(newType)));
+        mainFrame.getInfoPanel().changeElement(MetalType.getMetalInfo(MetalType.convertFromString(newType)));
     }
     
      /**
@@ -70,7 +70,7 @@ public class View implements AbstractView{
     @Override
     public void setOutcomeCurrent(ExpNumber current){
         mainFrame.getOutcomePanel().setCurrentDisplay(current);
-        mainFrame.getCathodePanel().setCurrentDisplay(current);
+        mainFrame.getCathodePanel().setCurrent(current);
     }
     
     /**
@@ -81,6 +81,19 @@ public class View implements AbstractView{
     public void setPhotonEnergy(double photonEnergy){
         mainFrame.getOutcomePanel().setPhotonEnergyDisplay(photonEnergy);
         mainFrame.getCathodePanel().setPhotonEnergy(photonEnergy);
+    }
+    
+    /**
+     * Funkcja sprawdza czy wartość index znajduje się między wartościami a (łącznie)
+     * i b (rozłącznie)
+     * @param a dolne ograniczenie przedziału (łączne)
+     * @param b górne ograniczenie przedziału (rozłączne)
+     * @param index wartość sprawdzana
+     * @return true gdy index znajduje się między a i b, w przeciwnym przypadku false
+     */
+    public static boolean isBetween(int a, int b, int index){
+        if(index >= a && index < b) return true;
+        else return false;
     }
     
 }

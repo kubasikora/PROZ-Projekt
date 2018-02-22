@@ -15,10 +15,13 @@ import photoelectriceffectsimulator.utilities.MetalType;
 public class ModelState extends Observable {
     /** Typ metalu oraz powiązana z nim praca wyjścia w elektronowoltach */
     private MetalType activeMetalType;
+    
     /** Długośc fali padającej */
     private ExpNumber waveLength;
+    
     /** Napięcie przyłożone do płytek w woltach*/
     private double voltage;
+    
     /** Natężenie światła padającego */
     private double intensity;
 

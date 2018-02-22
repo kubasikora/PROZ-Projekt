@@ -29,10 +29,10 @@ public class MainFrame extends JFrame {
     private final ControlPanel controlPanel;
     
     /**Kontener obsługujący elementy wypisujące obliczone wyniki*/
-    private OutcomePanel outcomePanel;
+    private final OutcomePanel outcomePanel;
     
     /**Kontener obsługujący wykres w dolnej części ekranu*/
-    private GraphPanel graphPanel;
+    private final InfoPanel infoPanel;
     
     /**
      * Konstruktor parametryzowany
@@ -53,15 +53,15 @@ public class MainFrame extends JFrame {
         upperPanel.add(Box.createGlue());
         upperPanel.add(controlPanel);  
       
-        outcomePanel = new OutcomePanel(new Dimension(500,300), controller); //panel wynikowy
-        graphPanel = new GraphPanel(new Dimension(300,300)); //panel wykresu
+        outcomePanel = new OutcomePanel(new Dimension(500,300)); //panel wynikowy
+        infoPanel = new InfoPanel(new Dimension(300,300)); //panel wykresu
         
         //dolny panel
         bottomPanel = new JPanel();
         bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.LINE_AXIS));
         bottomPanel.add(outcomePanel);
         //bottomPanel.add(Box.createGlue());
-        bottomPanel.add(graphPanel);
+        bottomPanel.add(infoPanel);
     
         mainPanel.add(upperPanel);
         //mainPanel.add(Box.createGlue());
@@ -78,11 +78,6 @@ public class MainFrame extends JFrame {
         setLocationRelativeTo(null);
         setTitle("Zjawisko fotoelektryczne");      
         setResizable(false);
-        
-        JPanel glass = new JPanel();
-        glass.setOpaque(false);
-        glass.setVisible(true);
-        setGlassPane(glass);
     }
     
     /**
@@ -105,8 +100,8 @@ public class MainFrame extends JFrame {
      * Zwraca referencję do panelu informacyjnego
      * @return panel informacyjny
      */
-    public GraphPanel getGraphPanel(){
-        return graphPanel;
+    public InfoPanel getInfoPanel(){
+        return infoPanel;
     }
     
     /**

@@ -12,33 +12,42 @@ import photoelectriceffectsimulator.utilities.ExpNumber;
  */
 public class OutcomePanel extends JPanel{
     
+    /** Label opisujący wyświetlanie pracy wyjścia  */
     private JLabel exitEnergyDisplay;
+    /** Label wyświetlający wartość pracy wyjścia  */
     private JLabel exitEnergyLabel;
     
+    /** Label opisujący wyświetlanie prądu przyrządu */
     private JLabel currentDisplay;
+    /** Label wyświetlający wartość prądu przyrządu */
     private JLabel currentLabel;
+    /** Label wyświetlający jednostkę w których wyrazony jest prąd przyrządu*/
     private JLabel currentUnit;
     
+    /** Label opisujący wyświetlanie energii fotonu */
     private JLabel photonEnergyDisplay;
+    /** Label wyświetlający wartość energii fotonu */
     private JLabel photonEnergyLabel;
     
-    private final ControllerViewCommunicator controller;
     
     /**
-     * Konstruktor 
+     * Konstruktor parametryzowany rozmiarem panelu 
      * @param dimension rozmiar panelu  
      */
-    OutcomePanel(Dimension dimension, ControllerViewCommunicator controller){
-        this.controller = controller;
+    OutcomePanel(Dimension dimension){
+        //tworzenie panelu
         super.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         super.setBackground(Color.LIGHT_GRAY);
         super.setMinimumSize(dimension);
         super.setPreferredSize(dimension);
-        super.setMaximumSize(dimension);     
+        super.setMaximumSize(dimension);    
         
+        //tworzenie paneli pomocniczych
         JPanel exitEnergyPanel = createExitEnergyPanel();
         JPanel currentPanel = createCurrentPanel();
         JPanel photonEnergyPanel = createPhotonEnergyPanel();
+        
+        //dodawanie panelu
         super.setAlignmentX(CENTER_ALIGNMENT);
         super.add(Box.createRigidArea(new Dimension(0,15)));
         super.add(exitEnergyPanel);
@@ -52,15 +61,15 @@ public class OutcomePanel extends JPanel{
     
     /**
      * Funkcja ustawia wartość pracy wyjścia wyświetlanej na ekranie
-     * @param newExitEnergy 
+     * @param newExitEnergy nowa wartość pracy wyjścia 
      */
     public void setExitEnergyDisplay(double newExitEnergy){
         exitEnergyDisplay.setText(String.valueOf(newExitEnergy));
     }
     
     /**
-     * Funkcja ustawia wartość pracy wyjścia wyświetlanej na ekranie
-     * @param newCurrent 
+     * Funkcja ustawia wartość prądu wyświetlanego na ekranie
+     * @param newCurrent nowa wartość prądu
      */
     public void setCurrentDisplay(ExpNumber newCurrent){
         validateCurrentUnit(newCurrent.getIndex());
@@ -87,7 +96,6 @@ public class OutcomePanel extends JPanel{
         if(index > 6 && index <= 9) currentUnit.setText("nA");
         if(index > 9 && index <= 12) currentUnit.setText("pA");
         if(index > 12 && index <= 15) currentUnit.setText("fA");
-
     }
     
     /**

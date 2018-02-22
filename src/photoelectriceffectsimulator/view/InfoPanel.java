@@ -9,27 +9,43 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.Toolkit;
 import photoelectriceffectsimulator.utilities.MetalInfo;
+import photoelectriceffectsimulator.utilities.MetalType;
 
 /**
  * Kontener obsługujący wyświetlanie informacji o metalu z którego jest zrobiony przyrząd
  * 
  * @author Jakub Sikora
  */
-public class GraphPanel extends JPanel{
+public class InfoPanel extends JPanel{
     
+    /** Label wyświetlający informację o liczbie atomowej pierwiastka */
     private JLabel atomicNumberLabel;
+    
+    /** Label wyświetlający informację o skrócie pierwiastka */
     private JLabel elementShortcutLabel;
+    
+    /** Label wyświetlający informację o nazwie pierwiastka */
     private JLabel elementNameLabel;
+    
+    /** Label wyświetlający informację o masie atomowej pierwiastka */
     private JLabel atomicMassLabel;
-    private JPanel elementPanel;
+    
+    /** Panel zbiorczy, wyświetlający wszystkie informacje o pierwiastku */
+    private final JPanel elementPanel;
+    
+    /** Typ metalu o którym informacje mają zostać wyświetlone */
+    private MetalType activeType;
     
     /**
-     * Konstruktor 
+     * Konstruktor parametryzowany rozmiarem panelu.
+     * Inicjalizuje labele wartościami domyślnymi
      * @param dimension rozmiar panelu  
      */
-    GraphPanel(Dimension dimension){
+    InfoPanel(Dimension dimension){
+        activeType = MetalType.FERRUM;
+
         super.setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
-        setBackground(Color.LIGHT_GRAY);
+        super.setBackground(Color.LIGHT_GRAY);
         super.setMinimumSize(dimension);
         super.setPreferredSize(dimension);
         super.setMaximumSize(dimension);
@@ -55,32 +71,32 @@ public class GraphPanel extends JPanel{
         elemPanel.setAlignmentY(CENTER_ALIGNMENT);
         elemPanel.setBackground(new Color(102,255,102));
         
+        //Inicjalizuj wartościami domyślnymi
         atomicNumberLabel = new JLabel("26");
         elementShortcutLabel = new JLabel("Fe");
         elementNameLabel = new JLabel("Żelazo");
         atomicMassLabel = new JLabel("55.845");
         
+        //Ustaw rozmiary labelów
         changeFontSize(atomicNumberLabel, 3);
         changeFontSize(elementShortcutLabel, 6);
         changeFontSize(elementNameLabel, 2);
         changeFontSize(atomicMassLabel, 1);
         
-        
+        //Dodaj labele do panelu
         elemPanel.add(atomicNumberLabel);
         elemPanel.add(elementShortcutLabel);
         elemPanel.add(elementNameLabel);
         elemPanel.add(atomicMassLabel);
         elemPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
         
+        //Dodaj MouseListenera
         elemPanel.addMouseListener(new MouseListener(){
             @Override
             public void mouseClicked(MouseEvent e) {
                 Toolkit tk = Toolkit.getDefaultToolkit();
                 tk.beep();
-                JOptionPane.showMessageDialog(elementPanel, 
-                                              elementNameLabel.getText(), 
-                                              "Materiał fotokatody", 
-                                              HEIGHT);
+                openChildFrame(activeType);
              }
 
             @Override
@@ -97,6 +113,14 @@ public class GraphPanel extends JPanel{
         });
         
         return elemPanel;
+    }
+    
+    /**
+     * Ustawia nowy typ metalu o którym informacje mają zostać wyświetlone
+     * @param newMetalType nowy typ metalu
+     */
+    public void setMetalType(MetalType newMetalType){
+        this.activeType = newMetalType;
     }
     
     /** 
@@ -120,5 +144,15 @@ public class GraphPanel extends JPanel{
         this.elementShortcutLabel.setText(metalInfo.getElementShortcut());
         this.elementNameLabel.setText(metalInfo.getElementName());
         this.atomicMassLabel.setText(String.valueOf(metalInfo.getAtomicMass()));
+    }
+    
+    /**
+     * Funkcja uruchamia okno pomocnicze wyświetlające infografikę z dodatkowymi 
+     * informacjami o danym pierwiastku
+     * @param type typ pierwiastka 
+     */
+    private void openChildFrame(MetalType type){
+        ChildFrame child = ChildFrame.getInstance(type);        
+        child.setVisible(true);   
     }
 }

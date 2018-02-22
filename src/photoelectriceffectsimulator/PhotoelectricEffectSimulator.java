@@ -18,8 +18,8 @@ import photoelectriceffectsimulator.controller.Controller;
 public class PhotoelectricEffectSimulator {
 
     /**
-     * Funkcja main programu która tworzy oraz przekazuje referencje
-     * do obiektów modelu, kontrolera i widoku zgodnych z 
+     * Funkcja main programu która tworzy
+     * obiekty modelu, kontrolera i widoku zgodnych z 
      * architekturą MVC
      * 
      * @param args argumenty wiersza poleceń
@@ -32,12 +32,10 @@ public class PhotoelectricEffectSimulator {
         model.setController(controller);
         view.setController(controller);
         
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run(){
+        SwingUtilities.invokeLater(() -> {
                 view.initializeMainFrame();
             }
-        });
+        );
     }
     
 }

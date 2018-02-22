@@ -7,6 +7,7 @@ package photoelectriceffectsimulator.utilities;
 public class ExpNumber {
     /** Podstawa liczby zapisanej w notacji wykładniczej*/
     private double base;
+    
     /** Wykładnik liczby zapisanej w notacji wykładniczej */
     private int index;
     

@@ -245,6 +245,8 @@ public class ControlPanel extends JPanel {
                 String chosenType = (String)metalTypeComboBox.getSelectedItem();
                 activeController.metalTypeChange(chosenType);
                 metalTypeComboBox.hidePopup();
+                MetalType type = MetalType.convertFromString(chosenType);
+                root.getInfoPanel().setMetalType(type);
             }
         });
     }

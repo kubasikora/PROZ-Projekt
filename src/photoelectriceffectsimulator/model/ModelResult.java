@@ -48,7 +48,7 @@ public class ModelResult {
     }
     
     /**
-     * Zwraca obliczoną pracę wyjścica
+     * Zwraca obliczoną pracę wyjścia
      * @return praca wyjścia z katody
      */
     public double getExitEnergy(){

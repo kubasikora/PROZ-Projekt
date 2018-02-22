@@ -17,7 +17,6 @@ public enum MetalType {
     WOLFRAMIUM(4.53),
     PLATINUM(5.12),
     SODIUM(2.36);
-    //TODO zwiększyć ilość dostępnych metali
     
    /** Praca wyjścia podana w elektronowoltach */ 
     private final double exitEnergy;
@@ -89,5 +88,36 @@ public enum MetalType {
         }
         
         return new MetalInfo(26, "Fe", "Żelazo", 55.845, new Color(102,255,102));
+    }
+    
+    /**
+     * Funkcja statyczna zwraca ścieżkę do infografiki
+     * odpowiedniego pierwiastka
+     * @param metalType typ metalu którego infografika jest poszukiwana
+     * @return ścieżka do odpowiendniej infografiki
+     */
+    public static String getMetalIconPath(MetalType metalType){
+        String path = null;
+        switch(metalType){
+            case FERRUM: 
+                path = "ferrum.png";
+                break;
+            case ALUMINIUM: 
+                path = "aluminium.png";
+                break;
+            case CAESIUM: 
+                path = "caesium.png";
+                break;
+            case WOLFRAMIUM: 
+                path = "wolframium.png";
+                break;
+            case PLATINUM: 
+                path = "platinium.png";
+                break;
+            case SODIUM: 
+                path = "sodium.png";
+                break;
+        }
+        return path;
     }
 }
